@@ -8,13 +8,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.crashlytics.android.Crashlytics;
+import com.first.djfactory.rest.model.ServerResponse;
+import com.first.djfactory.rest.service.RestClient;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 
 import io.fabric.sdk.android.Fabric;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class ActMain extends AppCompatActivity {
 
@@ -61,6 +67,24 @@ public class ActMain extends AppCompatActivity {
             @Override
             public int getCount() {
                 return 0;
+            }
+        });
+
+        RestClient.getService().getHeadline(new Callback<ServerResponse>() {
+            @Override
+            public void success(ServerResponse serverResponse, Response response) {
+                int dataCount = serverResponse.getResponse().get(0).getHeadlines().size();
+                if (dataCount > 0) {
+                    for (int i = 0; i < dataCount; i++) {
+                        Log.i("DATA", serverResponse.getResponse()
+                                .get(0).getHeadlines().get(i).getUrl());
+                    }
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
             }
         });
     }
