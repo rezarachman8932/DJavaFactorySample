@@ -1,4 +1,4 @@
-package com.first.djfactory;
+package com.first.djfactory.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,8 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
+import com.first.djfactory.BuildConfig;
+import com.first.djfactory.R;
 import com.first.djfactory.rest.model.ServerResponse;
 import com.first.djfactory.rest.service.RestClient;
 import com.github.florent37.materialviewpager.MaterialViewPager;
@@ -24,11 +27,6 @@ import retrofit.client.Response;
 
 public class ActMain extends AppCompatActivity {
 
-    private MaterialViewPager mViewPager;
-    private DrawerLayout mDrawer;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +36,10 @@ public class ActMain extends AppCompatActivity {
             Fabric.with(this, new Crashlytics());
         }
 
-        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+        MaterialViewPager mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 
-        toolbar = mViewPager.getToolbar();
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Toolbar toolbar = mViewPager.getToolbar();
+        DrawerLayout mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -55,7 +53,7 @@ public class ActMain extends AppCompatActivity {
             }
         }
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
         mDrawer.setDrawerListener(mDrawerToggle);
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
